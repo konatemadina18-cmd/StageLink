@@ -30,11 +30,15 @@ RUN php artisan key:generate --force || true
 # Donner les bonnes permissions aux dossiers storage et bootstrap/cache
 RUN chmod -R 775 storage bootstrap/cache
 
-# Mettre en cache la config et les routes pour de meilleures performances
-RUN php artisan config:cache && php artisan route:cache || true
-
 # Exposer le port utilisé par Render (variable dynamique)
 EXPOSE 10000
 
-# Lancer les migrations puis démarrer le serveur Laravel sur le port fourni par Render
-CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-10000}
+# IMPORTANT : on NE met PAS en cache la config ici (au build), car les variables
+# d'environnement de Render (DB_CONNECTION, DB_HOST, etc.) ne sont pas encore
+# disponibles à ce moment-là. On le fait au démarrage du conteneur à la place,
+# une fois que les vraies variables d'environnement sont injectées.
+CMD php artisan config:clear && \
+    php artisan config:cache && \
+    php artisan route:cache || true && \
+    php artisan migrate --force && \
+    php artisan serve --host=0.0.0.0 --port=${PORT:-10000}
