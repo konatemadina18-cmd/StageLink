@@ -179,5 +179,6 @@ php artisan route:list
 - `database/migrations` : creation et modification des tables.
 
 ## Auteur
+KONATE AWA MADINA
 
 Projet realise dans le cadre du developpement de StageLink.
