@@ -1,0 +1,386 @@
+/* =========================================
+   VARIABLES GLOBALES DU THÈME STAGELINK
+   (identiques à connexion.css)
+========================================= */
+
+:root {
+    --blue: #1E88FF;
+    --blue-dark: #0A1F44;
+    --cyan: #00D4FF;
+    --text: #1E293B;
+    --text-light: #64748B;
+    --white: #FFFFFF;
+    --background: #F8FAFC;
+
+    --shadow: 0 20px 50px rgba(0, 0, 0, 0.10);
+}
+
+
+/* =========================================
+   RESET CSS
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--background);
+    overflow-x: hidden;
+}
+
+
+/* =========================================
+   CONTENEUR PRINCIPAL
+   Split en 2 colonnes (identique connexion)
+========================================= */
+
+.login-page {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+
+/* =========================================
+   PARTIE GAUCHE
+   (identique à connexion.css)
+========================================= */
+
+.left-panel {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0A1F44, #1E88FF);
+    color: white;
+}
+
+.glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+}
+
+.glow-1 {
+    width: 300px;
+    height: 300px;
+    background: rgba(0, 212, 255, .30);
+    top: -80px;
+    left: -80px;
+}
+
+.glow-2 {
+    width: 350px;
+    height: 350px;
+    background: rgba(255, 255, 255, .15);
+    bottom: -120px;
+    right: -120px;
+}
+
+.content {
+    position: relative;
+    z-index: 2;
+    max-width: 550px;
+}
+
+.logo-box {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.logo-box img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+.logo-box h2 {
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.badge {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .15);
+    backdrop-filter: blur(10px);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+.content h1 {
+    font-size: 55px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.content p {
+    font-size: 17px;
+    line-height: 1.8;
+    color: #DDE9FF;
+    margin-bottom: 40px;
+}
+
+.stats {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, .12);
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    border-radius: 20px;
+    min-width: 120px;
+}
+
+.stat-card h3 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.stat-card span {
+    font-size: 14px;
+    color: #DDE9FF;
+}
+
+
+/* =========================================
+   PARTIE DROITE
+   (identique à connexion.css)
+========================================= */
+
+.right-panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    background: #F8FAFC;
+}
+
+
+/* =========================================
+   CARTE PRINCIPALE
+========================================= */
+
+.login-card {
+    width: 100%;
+    max-width: 450px;
+    background: white;
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: var(--shadow);
+}
+
+.login-card h2 {
+    font-size: 35px;
+    color: var(--blue-dark);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: var(--text-light);
+    margin-bottom: 35px;
+}
+
+
+/* =========================================
+   GRILLE DES PROFILS
+   2 cartes cliquables empilées
+========================================= */
+
+.profil-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+
+/* =========================================
+   CARTE DE PROFIL (item cliquable)
+========================================= */
+
+.profil-item {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    padding: 22px 20px;
+
+    border: 2px solid #E8EEF7;
+    border-radius: 20px;
+
+    text-decoration: none;
+    color: var(--text);
+
+    background: #FAFCFF;
+
+    cursor: pointer;
+
+    transition: border-color .25s, background .25s, transform .25s, box-shadow .25s;
+}
+
+.profil-item:hover {
+    border-color: var(--blue);
+    background: #EFF6FF;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(30, 136, 255, .15);
+}
+
+.profil-item:hover .profil-arrow {
+    transform: translateX(5px);
+    color: var(--blue);
+}
+
+
+/* =========================================
+   ICÔNE RONDE DE PROFIL
+========================================= */
+
+.profil-icon-wrap {
+    flex-shrink: 0;
+
+    width: 56px;
+    height: 56px;
+
+    border-radius: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: background .25s;
+}
+
+.profil-icon-wrap svg {
+    width: 26px;
+    height: 26px;
+}
+
+/* Couleur spécifique Candidat */
+.candidat-icon {
+    background: rgba(30, 136, 255, .12);
+    color: var(--blue);
+}
+
+.profil-item:hover .candidat-icon {
+    background: rgba(30, 136, 255, .22);
+}
+
+/* Couleur spécifique Recruteur */
+.recruteur-icon {
+    background: rgba(10, 31, 68, .10);
+    color: var(--blue-dark);
+}
+
+.profil-item:hover .recruteur-icon {
+    background: rgba(10, 31, 68, .18);
+}
+
+
+/* =========================================
+   TEXTE INTÉRIEUR DE LA CARTE
+========================================= */
+
+.profil-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.profil-text strong {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--blue-dark);
+}
+
+.profil-text span {
+    font-size: 13px;
+    color: var(--text-light);
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   FLÈCHE À DROITE
+========================================= */
+
+.profil-arrow {
+    flex-shrink: 0;
+    color: #CBD5E1;
+    transition: transform .25s, color .25s;
+}
+
+.profil-arrow svg {
+    width: 20px;
+    height: 20px;
+}
+
+
+/* =========================================
+   TEXTE INSCRIPTION / RETOUR
+   (identiques à connexion.css)
+========================================= */
+
+.register-text {
+    text-align: center;
+    color: var(--text-light);
+}
+
+.register-text a {
+    color: var(--blue);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.back-home {
+    display: block;
+    text-align: center;
+    margin-top: 25px;
+    color: var(--blue-dark);
+    text-decoration: none;
+    font-weight: 600;
+    transition: opacity .2s;
+}
+
+.back-home:hover {
+    opacity: .7;
+}
+
+
+/* =========================================
+   RESPONSIVE TABLETTE ET MOBILE
+   (identique à connexion.css)
+========================================= */
+
+@media (max-width: 900px) {
+
+    .login-page {
+        grid-template-columns: 1fr;
+    }
+
+    .left-panel {
+        display: none;
+    }
+
+    .right-panel {
+        padding: 25px;
+    }
+
+    .login-card {
+        padding: 30px;
+    }
+}

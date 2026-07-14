@@ -1,0 +1,613 @@
+/* =========================================
+   VARIABLES GLOBALES DU THÈME STAGELINK
+========================================= */
+
+:root {
+    --blue: #1E88FF;
+    --blue-dark: #0A1F44;
+    --cyan: #00D4FF;
+    --text: #1E293B;
+    --text-light: #64748B;
+    --white: #FFFFFF;
+    --background: #F8FAFC;
+    --shadow: 0 20px 50px rgba(0, 0, 0, 0.10);
+}
+
+
+/* =========================================
+   RESET
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--background);
+    color: var(--text);
+    overflow-x: hidden;
+}
+
+
+/* =========================================
+   HEADER / NAVBAR
+   (identique accueil)
+========================================= */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(30, 136, 255, 0.08);
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 30px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--blue-dark);
+}
+
+.logo img {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-light);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 10px;
+    transition: color .2s, background .2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--blue);
+    background: rgba(30, 136, 255, .08);
+}
+
+.nav-cta {
+    background: var(--blue) !important;
+    color: white !important;
+    font-weight: 700 !important;
+    padding: 10px 20px !important;
+    border-radius: 12px !important;
+}
+
+.nav-cta:hover {
+    background: #1a7aee !important;
+    transform: translateY(-1px);
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--blue-dark);
+    border-radius: 2px;
+    transition: .3s;
+}
+
+
+/* =========================================
+   SECTION BAND (espacement commun)
+========================================= */
+
+.section-band {
+    padding: 90px 30px;
+}
+
+.section-heading {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 60px;
+}
+
+.eyebrow {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 14px;
+}
+
+.section-heading h2 {
+    font-size: 38px;
+    font-weight: 800;
+    color: var(--blue-dark);
+    line-height: 1.2;
+    margin-bottom: 16px;
+}
+
+.section-heading p {
+    font-size: 17px;
+    color: var(--text-light);
+    line-height: 1.8;
+}
+
+
+/* =========================================
+   HERO À PROPOS
+========================================= */
+
+.apropos-hero {
+    position: relative;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 30px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0A1F44, #1E88FF);
+    color: white;
+}
+
+.hero-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+}
+
+.glow-one {
+    width: 400px;
+    height: 400px;
+    background: rgba(0, 212, 255, .25);
+    top: -100px;
+    left: -100px;
+}
+
+.glow-two {
+    width: 350px;
+    height: 350px;
+    background: rgba(255, 255, 255, .12);
+    bottom: -80px;
+    right: -80px;
+}
+
+.apropos-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 750px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .15);
+    backdrop-filter: blur(10px);
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: white;
+}
+
+.apropos-hero-content h1 {
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.apropos-hero-content p {
+    font-size: 17px;
+    line-height: 1.8;
+    color: #DDE9FF;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   SECTION HISTOIRE
+========================================= */
+
+.histoire {
+    background: white;
+}
+
+.histoire-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.histoire-text .eyebrow {
+    display: block;
+    margin-bottom: 14px;
+}
+
+.histoire-text h2 {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--blue-dark);
+    line-height: 1.2;
+    margin-bottom: 24px;
+}
+
+.histoire-text p {
+    font-size: 15px;
+    color: var(--text-light);
+    line-height: 1.8;
+    margin-bottom: 16px;
+}
+
+.histoire-card {
+    background: linear-gradient(135deg, #0A1F44, #1E88FF);
+    border-radius: 28px;
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.hcard-stat h3 {
+    font-size: 32px;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 6px;
+}
+
+.hcard-stat span {
+    font-size: 13px;
+    color: #DDE9FF;
+}
+
+
+/* =========================================
+   SECTION MVV (Mission Vision Valeurs)
+========================================= */
+
+.mvv {
+    background: var(--background);
+}
+
+.mvv-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.mvv-card {
+    background: white;
+    border-radius: 24px;
+    padding: 40px 32px;
+    text-align: center;
+    border: 1px solid #E8EEF7;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    transition: transform .3s, box-shadow .3s;
+}
+
+.mvv-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(30, 136, 255, .12);
+}
+
+.mvv-icon {
+    font-size: 46px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.mvv-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--blue-dark);
+    margin-bottom: 14px;
+}
+
+.mvv-card p {
+    font-size: 15px;
+    color: var(--text-light);
+    line-height: 1.7;
+}
+
+
+/* =========================================
+   SECTION POURQUOI
+========================================= */
+
+.pourquoi {
+    background: white;
+}
+
+.pourquoi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.pourquoi-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 28px;
+    border-radius: 20px;
+    border: 1px solid #E8EEF7;
+    background: #FAFCFF;
+    transition: border-color .3s, box-shadow .3s, transform .3s;
+}
+
+.pourquoi-item:hover {
+    border-color: var(--blue);
+    box-shadow: 0 10px 30px rgba(30, 136, 255, .10);
+    transform: translateY(-4px);
+}
+
+.pourquoi-num {
+    flex-shrink: 0;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--blue);
+    opacity: .3;
+    line-height: 1;
+}
+
+.pourquoi-item h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--blue-dark);
+    margin-bottom: 8px;
+}
+
+.pourquoi-item p {
+    font-size: 14px;
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   CTA FINAL
+========================================= */
+
+.cta-apropos {
+    background: linear-gradient(135deg, #0A1F44, #1E88FF);
+    padding: 90px 30px;
+    text-align: center;
+    color: white;
+}
+
+.cta-apropos .eyebrow {
+    color: var(--cyan);
+}
+
+.cta-apropos h2 {
+    font-size: 40px;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 16px;
+    line-height: 1.2;
+}
+
+.cta-apropos p {
+    font-size: 17px;
+    color: #DDE9FF;
+    margin-bottom: 36px;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+    padding: 14px 32px;
+    border-radius: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform .3s, box-shadow .3s;
+}
+
+.btn-primary {
+    background: white;
+    color: var(--blue-dark);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, .20);
+}
+
+.btn-outline {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, .5);
+}
+
+.btn-outline:hover {
+    background: rgba(255, 255, 255, .10);
+    border-color: white;
+    transform: translateY(-3px);
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer {
+    background: var(--blue-dark);
+    color: white;
+    padding: 50px 30px 30px;
+}
+
+.footer-inner {
+    max-width: 1100px;
+    margin: 0 auto 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.footer-inner strong {
+    display: block;
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.footer-inner p {
+    font-size: 14px;
+    color: #DDE9FF;
+}
+
+.footer-links {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #DDE9FF;
+    font-size: 14px;
+    transition: color .2s;
+}
+
+.footer-links a:hover {
+    color: white;
+}
+
+.footer-copy {
+    text-align: center;
+    color: #8899BB;
+    font-size: 13px;
+    border-top: 1px solid rgba(255, 255, 255, .08);
+    padding-top: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   ANIMATIONS REVEAL AU SCROLL
+========================================= */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity .6s ease, transform .6s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* =========================================
+   RESPONSIVE MOBILE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 20px;
+        border-bottom: 1px solid #E8EEF7;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        gap: 4px;
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+
+    .apropos-hero-content h1 {
+        font-size: 34px;
+    }
+
+    .histoire-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .mvv-grid,
+    .pourquoi-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-heading h2 {
+        font-size: 28px;
+    }
+
+    .cta-apropos h2 {
+        font-size: 28px;
+    }
+
+    .histoire-card {
+        grid-template-columns: 1fr 1fr;
+    }
+}

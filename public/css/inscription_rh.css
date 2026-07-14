@@ -1,0 +1,427 @@
+/* =========================================
+VARIABLES GLOBALES
+========================================= */
+
+:root {
+    --blue: #1E88FF;
+    --blue-dark: #0A1F44;
+    --cyan: #00D4FF;
+    --text: #1E293B;
+    --text-light: #64748B;
+    --white: #FFFFFF;
+    --background: #F8FAFC;
+    --shadow: 0 20px 50px rgba(0, 0, 0, 0.10);
+    }
+    
+    /* RESET */
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      }
+    
+    body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--background);
+    overflow-x: hidden;
+    }
+    
+    /* =========================================
+    LAYOUT
+    ========================================= */
+    
+    .login-page {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 42% 58%;
+    }
+    
+    /* =========================================
+    LEFT PANEL
+    ========================================= */
+    
+    .left-panel {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0A1F44, #1E88FF);
+    color: white;
+    }
+    
+    .glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    }
+    
+    .glow-1 {
+    width: 260px;
+    height: 260px;
+    background: rgba(0, 212, 255, 0.30);
+    top: -60px;
+    left: -60px;
+    }
+    
+    .glow-2 {
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.15);
+    bottom: -90px;
+    right: -90px;
+    }
+    
+    .content {
+    position: relative;
+    z-index: 2;
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    }
+    
+    .logo-box {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    }
+    
+    .logo-box img {
+    width: 58px;
+    height: 58px;
+    object-fit: cover;
+    border-radius: 14px;
+    }
+    
+    .logo-box h2 {
+    font-size: 28px;
+    font-weight: 800;
+    }
+    
+    .badge {
+    display: inline-block;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.15);
+    margin-bottom: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    }
+    
+    .content h1 {
+    font-size: 38px;
+    line-height: 1.25;
+    margin-bottom: 18px;
+    }
+    
+    .content p {
+    line-height: 1.7;
+    font-size: 15px;
+    color: #DDE9FF;
+    margin-bottom: 30px;
+    }
+    
+    /* =========================================
+    STEPS
+    ========================================= */
+    
+    .steps {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    }
+    
+    .step {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    opacity: .5;
+    }
+    
+    .step.active {
+    opacity: 1;
+    }
+    
+    .step-num {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.15);
+    border: 2px solid rgba(255,255,255,.30);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    }
+    
+    .step.active .step-num {
+    background: var(--cyan);
+    color: var(--blue-dark);
+    border-color: var(--cyan);
+    }
+    
+    .step-text strong {
+    display: block;
+    font-size: 13px;
+    }
+    
+    .step-text span {
+    font-size: 11px;
+    color: #DDE9FF;
+    }
+    
+    .step-line {
+    width: 2px;
+    height: 18px;
+    background: rgba(255,255,255,.20);
+    margin-left: 16px;
+    }
+    
+    /* =========================================
+    RIGHT PANEL
+    ========================================= */
+    
+    .right-panel {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px;
+    background: var(--background);
+    overflow-y: auto;
+    }
+    
+    /* =========================================
+    FORM CARD
+    ========================================= */
+    
+    .login-card {
+    width: 100%;
+    max-width: 550px;
+    background: white;
+    padding: 35px;
+    border-radius: 25px;
+    box-shadow: var(--shadow);
+    margin: 30px 0;
+    }
+    
+    .login-card h2 {
+    font-size: 28px;
+    color: var(--blue-dark);
+    margin-bottom: 8px;
+    }
+    
+    .subtitle {
+    color: var(--text-light);
+    margin-bottom: 25px;
+    font-size: 14px;
+    }
+    
+    /* SECTION LABEL */
+    .section-label {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--blue-dark);
+    margin: 25px 0 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #E2E8F0;
+    }
+    
+    /* FORM */
+    .row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    }
+    
+    .input-group {
+    margin-bottom: 18px;
+    }
+    
+    .input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    }
+    
+    .required {
+    color: #EF4444;
+    }
+    
+    /* INPUTS */
+    .input-group input,
+    .input-group textarea {
+    width: 100%;
+    padding: 15px 18px;
+    border: 1.5px solid #D8E3F0;
+    border-radius: 14px;
+    outline: none;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    background: #FAFCFF;
+    transition: 0.3s;
+    }
+    
+    .input-group textarea {
+    resize: none;
+    min-height: 120px;
+    }
+    
+    .input-group input:focus,
+    .input-group textarea:focus {
+    border-color: var(--blue);
+    background: white;
+    box-shadow: 0 0 0 4px rgba(30,136,255,.12);
+    }
+    
+    /* PASSWORD */
+    .password-box {
+    position: relative;
+    }
+    
+    .password-box input {
+    padding-right: 50px;
+    }
+    
+    .password-box button {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    cursor: pointer;
+    }
+    
+    /* UPLOAD */
+    .upload-zone {
+    border: 2px dashed #D8E3F0;
+    border-radius: 16px;
+    padding: 25px;
+    text-align: center;
+    cursor: pointer;
+    background: #FAFCFF;
+    transition: 0.3s;
+    }
+    
+    .upload-zone:hover {
+    border-color: var(--blue);
+    }
+    
+    .upload-input {
+    display: none;
+    }
+    
+    .upload-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    }
+    
+    .upload-icon {
+    font-size: 30px;
+    }
+    
+    .upload-text {
+    font-size: 14px;
+    font-weight: 600;
+    }
+    
+    .upload-hint {
+    font-size: 12px;
+    color: var(--text-light);
+    }
+    
+    /* PASSWORD STRENGTH */
+    .strength-bar {
+    height: 4px;
+    background: #E8EEF7;
+    border-radius: 999px;
+    margin-top: 8px;
+    }
+    
+    .strength-fill {
+    height: 100%;
+    width: 0;
+    border-radius: 999px;
+    }
+    
+    .strength-label {
+    font-size: 12px;
+    margin-top: 4px;
+    }
+    
+    /* ERRORS */
+    .field-error {
+    color: #EF4444;
+    font-size: 12px;
+    margin-top: 5px;
+    }
+    
+    /* BUTTON */
+    .login-btn {
+    width: 100%;
+    height: 54px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #1E88FF, #0A1F44);
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: .3s;
+    }
+    
+    .login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(30,136,255,.25);
+    }
+    
+    /* LINKS */
+    .register-text,
+    .back-home {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 14px;
+    }
+    
+    .register-text a,
+    .back-home {
+    color: var(--blue);
+    text-decoration: none;
+    font-weight: 600;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+    .login-page {
+    grid-template-columns: 1fr;
+    }
+    
+    .left-panel {
+        display: none;
+    }
+    
+    .right-panel {
+        padding: 20px;
+    }
+    
+    .login-card {
+        padding: 25px;
+        margin: 0;
+    }
+    
+    .row-2 {
+        grid-template-columns: 1fr;
+    }
+   
+    
+    }
+    
