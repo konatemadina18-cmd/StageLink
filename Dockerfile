@@ -1,14 +1,17 @@
 # Image de base PHP 8.3 avec les extensions nécessaires
 FROM php:8.3-cli
 
-# Installer les dépendances système et extensions PHP nécessaires pour Laravel + MySQL
+# Installer les dépendances système, Node.js et extensions PHP nécessaires pour Laravel + MySQL
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
+    curl \
     libzip-dev \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
+    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs \
     && docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl bcmath gd \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -23,6 +26,9 @@ COPY . .
 
 # Installer les dépendances PHP (sans les paquets de dev, optimisé pour la prod)
 RUN composer install --no-dev --optimize-autoloader --no-interaction
+
+# Installer les dépendances JS et compiler les assets (CSS/JS via Vite)
+RUN npm install && npm run build
 
 # Générer la clé d'application si elle n'existe pas déjà
 RUN php artisan key:generate --force || true
