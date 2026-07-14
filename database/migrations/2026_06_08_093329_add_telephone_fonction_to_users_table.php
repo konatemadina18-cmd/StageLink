@@ -10,17 +10,37 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-{
-    Schema::table('users', function (Blueprint $table) {
-        $table->string('telephone', 20)->nullable()->after('role');
-        $table->string('fonction')->nullable()->after('telephone');
-    });
-}
+    {
+        Schema::table('users', function (Blueprint $table) {
+            if (!Schema::hasColumn('users', 'telephone')) {
+                $table->string('telephone', 20)->nullable()->after('role');
+            }
 
-public function down(): void
-{
-    Schema::table('users', function (Blueprint $table) {
-        $table->dropColumn(['telephone', 'fonction']);
-    });
-}
+            if (!Schema::hasColumn('users', 'fonction')) {
+                $table->string('fonction')->nullable()->after('telephone');
+            }
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $columnsToDrops = [];
+
+            if (Schema::hasColumn('users', 'telephone')) {
+                $columnsToDrops[] = 'telephone';
+            }
+
+            if (Schema::hasColumn('users', 'fonction')) {
+                $columnsToDrops[] = 'fonction';
+            }
+
+            if (!empty($columnsToDrops)) {
+                $table->dropColumn($columnsToDrops);
+            }
+        });
+    }
 };
