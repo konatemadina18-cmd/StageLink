@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Services\TwoFactorAuthenticator;
+use App\Services\CloudinaryUploadService;
 
 class RHController extends Controller
 {
@@ -199,7 +200,7 @@ class RHController extends Controller
         return back()->with('success', 'Role du collaborateur mis a jour.');
     }
 
-    public function updateProfil(Request $request, TwoFactorAuthenticator $twoFactorAuthenticator)
+    public function updateProfil(Request $request, TwoFactorAuthenticator $twoFactorAuthenticator, CloudinaryUploadService $cloudinary)
     {
         $request->validate([
             'nom' => 'required|string|max:100',
@@ -216,9 +217,12 @@ class RHController extends Controller
 
         if ($request->hasFile('photo')) {
             if ($photoPath) {
-                Storage::disk('public')->delete($photoPath);
+                // Supprime l'ancien fichier (Cloudinary si URL complète, sinon disque local historique).
+                str_starts_with($photoPath, 'http')
+                    ? $cloudinary->delete($photoPath, 'image')
+                    : Storage::disk('public')->delete($photoPath);
             }
-            $photoPath = $request->file('photo')->store('photos', 'public');
+            $photoPath = $cloudinary->upload($request->file('photo'), 'photos');
         }
 
         if (!$request->boolean('two_factor_enabled')) {
@@ -306,7 +310,7 @@ class RHController extends Controller
         return back()->with('success', 'Parametres RH enregistres.');
     }
 
-    public function updateEntreprise(Request $request)
+    public function updateEntreprise(Request $request, CloudinaryUploadService $cloudinary)
     {
         $request->validate([
             'nom' => 'required|string|max:255',
@@ -328,9 +332,11 @@ class RHController extends Controller
 
         if ($request->hasFile('logo')) {
             if ($logoPath) {
-                Storage::disk('public')->delete($logoPath);
+                str_starts_with($logoPath, 'http')
+                    ? $cloudinary->delete($logoPath, 'image')
+                    : Storage::disk('public')->delete($logoPath);
             }
-            $logoPath = $request->file('logo')->store('logos', 'public');
+            $logoPath = $cloudinary->upload($request->file('logo'), 'logos');
         }
 
         $entreprise->update([
@@ -348,7 +354,7 @@ class RHController extends Controller
         return back()->with('success', 'Entreprise mise a jour.');
     }
 
-    public function sendMessage(Request $request)
+    public function sendMessage(Request $request, CloudinaryUploadService $cloudinary)
     {
         abort_unless(Auth::user()->role === 'rh_admin', 403);
 
@@ -362,7 +368,7 @@ class RHController extends Controller
         abort_unless($receiver->role === 'candidat', 403);
 
         $attachment = $request->hasFile('attachment')
-            ? $request->file('attachment')->store('message_attachments', 'public')
+            ? $cloudinary->upload($request->file('attachment'), 'message_attachments')
             : null;
 
         Message::create([

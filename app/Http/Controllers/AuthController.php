@@ -14,6 +14,7 @@ use App\Mail\BienvenuRH;
 use App\Mail\BienvenuCandidat;
 use App\Mail\TwoFactorCodeMail;
 use App\Services\TwoFactorAuthenticator;
+use App\Services\CloudinaryUploadService;
 
 class AuthController extends Controller
 {
@@ -138,17 +139,18 @@ class AuthController extends Controller
         return view('profil_candidat');
     }
 
-    public function storeProfilCandidat(Request $request)
+    public function storeProfilCandidat(Request $request, CloudinaryUploadService $cloudinary)
     {
         $request->validate([
             'cv'    => 'required|file|mimes:pdf|max:5120',
             'photo' => 'nullable|image|max:2048',
         ]);
 
-        $cvPath = $request->file('cv')->store('cvs', 'public');
+        // Envoi vers Cloudinary au lieu du disque local (Render n'a pas de stockage persistant).
+        $cvPath = $cloudinary->upload($request->file('cv'), 'cvs');
 
         $photoPath = $request->hasFile('photo')
-            ? $request->file('photo')->store('photos', 'public')
+            ? $cloudinary->upload($request->file('photo'), 'photos')
             : null;
 
         Candidat::create([
@@ -181,7 +183,7 @@ class AuthController extends Controller
         return view('inscription_rh');
     }
 
-    public function storeRegisterRH(Request $request)
+    public function storeRegisterRH(Request $request, CloudinaryUploadService $cloudinary)
     {
         $request->validate([
             'nom_entreprise'       => 'required|string|max:255',
@@ -198,7 +200,8 @@ class AuthController extends Controller
         $logoPath = null;
 
         if ($request->hasFile('logo')) {
-            $logoPath = $request->file('logo')->store('logos', 'public');
+            // Envoi vers Cloudinary au lieu du disque local (Render n'a pas de stockage persistant).
+            $logoPath = $cloudinary->upload($request->file('logo'), 'logos');
         }
 
         /*

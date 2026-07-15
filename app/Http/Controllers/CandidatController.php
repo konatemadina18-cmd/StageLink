@@ -15,6 +15,7 @@ use App\Models\Notification;
 use App\Models\Offre;
 use App\Models\RH;
 use App\Services\TwoFactorAuthenticator;
+use App\Services\CloudinaryUploadService;
 
 class CandidatController extends Controller
 {
@@ -127,7 +128,7 @@ class CandidatController extends Controller
     /* =========================================
        METTRE À JOUR LE PROFIL
     ========================================= */
-    public function updateProfil(Request $request)
+    public function updateProfil(Request $request, CloudinaryUploadService $cloudinary)
     {
         $user     = Auth::user();
         $candidat = Candidat::where('user_id', $user->id)->first();
@@ -162,15 +163,24 @@ class CandidatController extends Controller
 
         $photoPath = $candidat?->photo ?? $user->photo;
         if ($request->hasFile('photo')) {
-            if ($photoPath) Storage::disk('public')->delete($photoPath);
-            $photoPath = $request->file('photo')->store('photos', 'public');
+            // Supprime l'ancien fichier (Cloudinary si URL complète, sinon disque local historique).
+            if ($photoPath) {
+                str_starts_with($photoPath, 'http')
+                    ? $cloudinary->delete($photoPath, 'image')
+                    : Storage::disk('public')->delete($photoPath);
+            }
+            $photoPath = $cloudinary->upload($request->file('photo'), 'photos');
         }
         $user->update(['photo' => $photoPath]);
 
         $cvPath = $candidat?->cv;
         if ($request->hasFile('cv')) {
-            if ($cvPath) Storage::disk('public')->delete($cvPath);
-            $cvPath = $request->file('cv')->store('cvs', 'public');
+            if ($cvPath) {
+                str_starts_with($cvPath, 'http')
+                    ? $cloudinary->delete($cvPath, 'raw')
+                    : Storage::disk('public')->delete($cvPath);
+            }
+            $cvPath = $cloudinary->upload($request->file('cv'), 'cvs');
         }
 
         $profilData = [
@@ -295,7 +305,7 @@ class CandidatController extends Controller
                          ->with('success', 'Préférences enregistrées !');
     }
 
-    public function storeDocument(Request $request)
+    public function storeDocument(Request $request, CloudinaryUploadService $cloudinary)
     {
         $request->validate([
             'type_document' => 'required|in:cv,lettre_motivation,lettre_recommandation',
@@ -304,7 +314,7 @@ class CandidatController extends Controller
         ]);
 
         $candidat = Candidat::where('user_id', Auth::id())->firstOrFail();
-        $path = $request->file('document')->store('documents_candidat', 'public');
+        $path = $cloudinary->upload($request->file('document'), 'documents_candidat');
 
         if ($request->boolean('is_default') && $request->type_document === 'cv') {
             CandidateDocument::where('candidat_id', $candidat->id)->where('type_document', 'cv')->update(['is_default' => false]);
@@ -334,18 +344,21 @@ class CandidatController extends Controller
         return back()->with('success', 'CV principal mis a jour.');
     }
 
-    public function destroyDocument(CandidateDocument $document)
+    public function destroyDocument(CandidateDocument $document, CloudinaryUploadService $cloudinary)
     {
         $candidat = Candidat::where('user_id', Auth::id())->firstOrFail();
         abort_unless($document->candidat_id === $candidat->id, 403);
 
-        Storage::disk('public')->delete($document->chemin);
+        str_starts_with($document->chemin, 'http')
+            ? $cloudinary->delete($document->chemin, 'raw')
+            : Storage::disk('public')->delete($document->chemin);
+
         $document->delete();
 
         return back()->with('success', 'Document supprime.');
     }
 
-    public function sendMessage(Request $request)
+    public function sendMessage(Request $request, CloudinaryUploadService $cloudinary)
     {
         $request->validate([
             'receiver_id' => 'required|exists:users,id',
@@ -354,7 +367,7 @@ class CandidatController extends Controller
         ]);
 
         $attachment = $request->hasFile('attachment')
-            ? $request->file('attachment')->store('message_attachments', 'public')
+            ? $cloudinary->upload($request->file('attachment'), 'message_attachments')
             : null;
 
         // On enregistre le message et sa piece jointe si elle existe.
